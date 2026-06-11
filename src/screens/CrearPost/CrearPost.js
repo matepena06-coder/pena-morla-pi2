@@ -10,6 +10,7 @@ function CrearPost(){
     const crearPost =(descripcionPost)=>{
         db.collection("posts").add({
         email: auth.currentUser.email,
+        likes:[],
         descripcionPost: descripcionPost,
         createdAt: Date.now()})
         
@@ -21,15 +22,17 @@ function CrearPost(){
     return(
         <>
         <View style={styles.principal}>
+
+            <Text>Crear Nuevo Post</Text>
    
             <TextInput style={styles.field}
-            placeholder="post"
+            placeholder="Escribe aquí tu comentario..."
             onChangeText={text=> setDescripcionPost(text)}
             value={descripcionPost}/>
     
             
             <Pressable style={styles.button} onPress={()=> crearPost(descripcionPost)}>
-                <Text styles={styles.buttonText}>Crear Post</Text>
+                <Text styles={styles.buttonText}>Publicar Post</Text>
             </Pressable>
             
         </View>

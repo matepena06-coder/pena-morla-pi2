@@ -14,7 +14,7 @@ function Home(){
                 auth.onAuthStateChanged(
                     user=> {
                         if(user){
-                            useLinkProps.navigation.navigate("Login")
+                            navigation.navigate("Login")
                         }
                     }
                 )
@@ -22,7 +22,9 @@ function Home(){
         )
 
     useEffect(()=>{
-        db.collection("Posts").onSnapshot(
+        db.collection("posts")
+        .orderBy("createdAt", "desc")
+        .onSnapshot(
             docs=>{
                 let posts=[]
                 docs.forEach((doc)=>{
@@ -38,8 +40,7 @@ function Home(){
     return(
         <>
         <View style={styles.principal}>
-            <Text>Formulario de Home</Text>
-            <DynamicForm/>
+            <Text>Home</Text>
             <FlatList
             data={posteos}
             keyExtractor={(item)=> item.id}

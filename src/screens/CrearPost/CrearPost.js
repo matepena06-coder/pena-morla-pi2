@@ -1,18 +1,37 @@
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import {View, Text, StyleSheet, Pressable, TextInput} from 'react-native'
 import {auth, db} from "../../firebase/config.js"
 
-function CrearPost(){
+function CrearPost(props){
 
     const [descripcionPost, setDescripcionPost]= useState("")
+    
+    useEffect(
 
+        ()=>{
+            auth.onAuthStateChanged(
+                user=> {
+                    if(!user){
+                        props.navigation.navigate("Login")
+                    }
+                }
+            )
+        }, []
+    )
         
     const crearPost =(descripcionPost)=>{
-        db.collection("posts").add({
+        db.collection("posts")
+
+        .add({
         email: auth.currentUser.email,
         likes:[],
         descripcionPost: descripcionPost,
         createdAt: Date.now()})
+
+        .then(()=>{
+            setDescripcionPost("")
+            props.navigation.navigate("Home")
+        })
         
         .catch(error=>{
             console.log(error)

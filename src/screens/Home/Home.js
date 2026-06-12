@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
 import {View, Text, StyleSheet} from 'react-native'
-import DynamicForm from "../../components/DynamicForm/DynamicForm"
 import {auth, db} from "../../firebase/config"
 import Post from "../../components/Post/Post"
 import { FlatList } from "react-native"
 
-function Home(){
+function Home(props){
 
     const [posteos, setPosteos]= useState([])
 
@@ -13,8 +12,8 @@ function Home(){
             ()=>{
                 auth.onAuthStateChanged(
                     user=> {
-                        if(user){
-                            navigation.navigate("Login")
+                        if(!user){
+                            props.navigation.navigate("Login")
                         }
                     }
                 )

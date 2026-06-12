@@ -4,15 +4,15 @@ import Register from './src/screens/Register/Register';
 import Login from './src/screens/Login/Login';
 import HomeMenu from './src/components/HomeMenu/HomeMenu';
 
+const Stack = createNativeStackNavigator()
 export default function App() {
-  const Stack = createNativeStackNavigator()
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HomeMenu" component={HomeMenu} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         <Stack.Screen name="Register" component={Register} options={{headerShown: false}}/>
+        <Stack.Screen name="HomeMenu" component={HomeMenu} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

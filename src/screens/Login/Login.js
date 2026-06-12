@@ -16,7 +16,7 @@ function Login({navigation}){
             return
         }
         if (!email.includes("@")){
-            setLoginError("Email mal escrito")
+            setLoginError("Email mal formateado")
             return
         }
 

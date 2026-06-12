@@ -5,9 +5,9 @@ import {Entypo, MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
 import CrearPost from "../../screens/CrearPost/CrearPost";
 
 
+const Tab= createBottomTabNavigator()
 function HomeMenu(){
 
-    const Tab= createBottomTabNavigator()
 
     return(
 

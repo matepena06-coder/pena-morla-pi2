@@ -12,6 +12,16 @@ function Register({navigation}){
 
     const onSubmit =(email, password, username)=>{
 
+        if (!email.includes("@")){
+            setRegisterError("Email mal formateado")
+            return
+        }
+        
+        if (password<6){
+            setRegisterError("La contraseña debe tener como mínimo 6 caracteres")
+            return
+        }
+
         auth.createUserWithEmailAndPassword(email,password)
 
         .then(()=>{
@@ -23,8 +33,17 @@ function Register({navigation}){
             setEstaRegistrado(true)
             navigation.navigate("Login")
         })
+
         .catch(error=>{
-            setRegisterError("Fallo en el registro")
+
+        if (error.code === "auth/email-already-in-use"){
+            
+            setRegisterError("Ya existe un usuario registrado con este email")
+
+        } else {
+
+            setRegisterError("Fallo en el registro")}
+
         })
     }
 

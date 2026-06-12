@@ -51,6 +51,7 @@ function Home(props){
 
 const styles= StyleSheet.create({
         principal: {
+            flex: 1,
             alignItems: "center",
             padding: 10
         }

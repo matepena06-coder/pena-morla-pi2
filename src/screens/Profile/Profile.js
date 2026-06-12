@@ -68,9 +68,10 @@ function Profile({navigation}){
 
 const styles= StyleSheet.create({
     principal: {
-    alignItems: "center",
-    padding: 10
-}
+        flex: 1,
+        alignItems: "center",
+        padding: 10
+    } 
 })
 
 export default Profile

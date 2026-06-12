@@ -1,24 +1,63 @@
-import {View, Text, StyleSheet, Pressable} from 'react-native'
-import { auth } from '../../firebase/config'
+import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native'
+import {useState, useEffect} from 'react'
+import Post from "../../components/Post/Post"
+import {auth, db} from '../../firebase/config'
 
 function Profile({navigation}){
 
-    const styles= StyleSheet.create({
-        principal: {
-            alignItems: "center",
-            padding: 10
-        }
-    })
+    const [posteos, setPosteos]= useState([])
+    const [username, setUserName]= useState("")
+
+    useEffect(()=>{
+        db.collection("users")
+        .where("email", "==", auth.currentUser.email)
+        .onSnapshot(
+            docs=>{
+                docs.forEach((doc)=>{
+                    setUserName(doc.data().username)
+                })
+            })
+    },[])
+
+    useEffect(()=>{
+        db.collection("posts")
+        .where("email", "==", auth.currentUser.email)
+        .onSnapshot(
+            docs=>{
+                let posts=[]
+                docs.forEach((doc)=>{
+                    posts.push({
+                        id: doc.id,
+                        data: doc.data()
+                    })
+                })
+                setPosteos(posts)
+            })
+    },[])
 
     function logout(){
         auth.signOut()
-        navigation.navigate("Login")
+        .then(()=>navigation.navigate("Login"))
+        .catch(error=> console.log(error))
     }
 
     return(
         <>
         <View style={styles.principal}>
-            <Text>Formulario de Profile</Text>
+
+            <Text>Mi Perfil</Text>
+
+            <Text>Usuario: {username}</Text>
+
+            <Text>Email: {auth.currentUser.email}</Text>
+
+            <Text>Mis Posteos</Text>
+
+            <FlatList
+            data={posteos}
+            keyExtractor={(item)=> item.id}
+            renderItem={({item}) => <Post data={item.data}/>}/>
+
             <Pressable onPress={()=> logout()}>
                 <Text>Desloguearse</Text>
             </Pressable>
@@ -26,5 +65,12 @@ function Profile({navigation}){
         </>
     )
 }
+
+const styles= StyleSheet.create({
+    principal: {
+    alignItems: "center",
+    padding: 10
+}
+})
 
 export default Profile

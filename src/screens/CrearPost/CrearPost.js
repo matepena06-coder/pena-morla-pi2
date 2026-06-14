@@ -1,10 +1,11 @@
 import {useState, useEffect} from "react"
-import {View, Text, StyleSheet, Pressable, TextInput} from 'react-native'
+import {View, Text, StyleSheet, Pressable, TextInput, ActivityIndicator} from 'react-native'
 import {auth, db} from "../../firebase/config.js"
 
 function CrearPost(props){
 
     const [descripcionPost, setDescripcionPost]= useState("")
+    const [cargando, setCargando] = useState(false)
     
     useEffect(
 
@@ -20,6 +21,7 @@ function CrearPost(props){
     )
         
     const crearPost =(descripcionPost)=>{
+        setCargando(true)
         db.collection("posts")
 
         .add({
@@ -30,11 +32,13 @@ function CrearPost(props){
 
         .then(()=>{
             setDescripcionPost("")
+            setCargando(false)
             props.navigation.navigate("Home")
         })
-        
+
         .catch(error=>{
             console.log(error)
+            setCargando(false)
         })
     }
 
@@ -50,8 +54,8 @@ function CrearPost(props){
             value={descripcionPost}/>
     
             
-            <Pressable style={styles.button} onPress={()=> crearPost(descripcionPost)}>
-                <Text styles={styles.buttonText}>Publicar Post</Text>
+            <Pressable style={styles.button} onPress={()=> crearPost(descripcionPost)} disabled={cargando}>
+                {cargando ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Publicar Post</Text>}
             </Pressable>
             
         </View>

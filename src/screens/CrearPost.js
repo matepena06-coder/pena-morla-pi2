@@ -6,7 +6,7 @@ function CrearPost(props){
 
     const [descripcionPost, setDescripcionPost]= useState("")
     const [cargando, setCargando] = useState(false)
-    
+
     useEffect(
 
         ()=>{
@@ -19,7 +19,7 @@ function CrearPost(props){
             )
         }, []
     )
-        
+
     const crearPost =(descripcionPost)=>{
         setCargando(true)
         db.collection("posts")
@@ -46,18 +46,18 @@ function CrearPost(props){
         <>
         <View style={styles.principal}>
 
-            <Text>Crear Nuevo Post</Text>
-   
+            <Text style={styles.titulo}>Crear nuevo post</Text>
+
             <TextInput style={styles.field}
-            placeholder="Escribe aquí tu comentario..."
+            placeholder="Escribe aquí tu posteo..."
+            placeholderTextColor="#979797"
             onChangeText={text=> setDescripcionPost(text)}
             value={descripcionPost}/>
-    
-            
+
             <Pressable style={styles.button} onPress={()=> crearPost(descripcionPost)} disabled={cargando}>
-                {cargando ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Publicar Post</Text>}
+                {cargando ? <ActivityIndicator color="#eeeeee" /> : <Text style={styles.buttonText}>Publicar post</Text>}
             </Pressable>
-            
+
         </View>
         </>
     )
@@ -66,32 +66,35 @@ function CrearPost(props){
 const styles= StyleSheet.create({
 
         principal: {
-            paddingHorizontal: 10,
-            marginTop: 20
+            flex: 1,
+            backgroundColor: "#eeeeee",
+            padding: 16
         },
-
+        titulo: {
+            color: "#000000",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginBottom: 16
+        },
         field:{
-            height: 20,
-            paddingVertical: 15,
-            paddingHorizontal: 10,
             borderWidth: 1,
-            borderColor: "#ccc",
-            borderRadius: 6,
-            marginVertical: 10
-        },
-
-        button:{
-            backgroundColor: "#28a745",
-            paddingHorizontal: 10,
-            paddingVertical: 6,
-            borderColor: "#28a745",
+            borderColor: "#979797",
             borderRadius: 4,
-            borderWidth: 1,
-            alignItems:"center"
+            paddingHorizontal: 10,
+            paddingVertical: 12,
+            marginVertical: 8,
+            color: "#000000"
         },
-
+        button:{
+            backgroundColor: "#0088cc",
+            paddingVertical: 12,
+            borderRadius: 4,
+            alignItems: "center",
+            marginVertical: 8
+        },
         buttonText: {
-            color: "#fff"
+            color: "#eeeeee",
+            fontWeight: "bold"
         }
     })
 

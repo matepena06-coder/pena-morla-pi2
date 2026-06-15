@@ -24,11 +24,16 @@ function HomeMenu(){
 
     return(
 
-    <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeStack} options={{headerShown: false, tabBarIcon:()=><Entypo name="home" size={24} color="black"/>}}/>
-        <Tab.Screen name="Crear Posteo" component={CrearPost} options={{headerShown: false, tabBarIcon:()=><Ionicons name="add-circle" size={24} color="black"/>}}/>
-        <Tab.Screen name="Profile" component={Profile} options={{headerShown: false, tabBarIcon:()=><MaterialCommunityIcons
-        name="face-man-profile" size={24} color="black"/>}}/>
+    <Tab.Navigator screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#0088cc",
+        tabBarInactiveTintColor: "#979797",
+        tabBarStyle: {backgroundColor: "#eeeeee"}
+    }}>
+        <Tab.Screen name="Home" component={HomeStack} options={{tabBarIcon:({color})=><Entypo name="home" size={24} color={color}/>}}/>
+        <Tab.Screen name="Crear Posteo" component={CrearPost} options={{tabBarIcon:({color})=><Ionicons name="add-circle" size={24} color={color}/>}}/>
+        <Tab.Screen name="Profile" component={Profile} options={{tabBarIcon:({color})=><MaterialCommunityIcons
+        name="face-man-profile" size={24} color={color}/>}}/>
     </Tab.Navigator>
 
     )

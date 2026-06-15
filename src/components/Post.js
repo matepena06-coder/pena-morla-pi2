@@ -33,10 +33,10 @@ function Post(props){
                 <Text style={styles.likes}>{likes.length} likes</Text>
                 <View style={styles.botones}>
                     <Pressable style={styles.boton} onPress={()=> toggleLike()}>
-                        <Text>{yaLikeo ? "No me gusta" : "Me gusta"}</Text>
+                        <Text style={styles.botonTexto}>{yaLikeo ? "No me gusta" : "Me gusta"}</Text>
                     </Pressable>
                     <Pressable style={styles.boton} onPress={()=> props.onComentar(props.id, props.data)}>
-                        <Text>Comentar</Text>
+                        <Text style={styles.botonTexto}>Comentar</Text>
                     </Pressable>
                 </View>
             </View>
@@ -46,18 +46,19 @@ function Post(props){
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: "#fff",
-        borderRadius: 8,
-        padding: 16,
+        backgroundColor: "#eeeeee",
+        borderWidth: 1,
+        borderColor: "#979797",
+        borderRadius: 4,
+        padding: 12,
         marginVertical: 8,
-        marginHorizontal: 16,
     },
     email: {
-        color: "#888",
+        color: "#666666",
         marginBottom: 8,
     },
     descripcion: {
-        color: "#222",
+        color: "#000000",
     },
     acciones: {
         flexDirection: "row",
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
         marginTop: 12,
     },
     likes: {
-        color: "#888",
+        color: "#666666",
     },
     botones: {
         flexDirection: "row",
@@ -74,9 +75,13 @@ const styles = StyleSheet.create({
     },
     boton: {
         paddingVertical: 6,
-        paddingHorizontal: 14,
-        borderRadius: 8,
-        backgroundColor: "#eee",
+        paddingHorizontal: 12,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: "#0088cc",
+    },
+    botonTexto: {
+        color: "#0088cc",
     },
 })
 

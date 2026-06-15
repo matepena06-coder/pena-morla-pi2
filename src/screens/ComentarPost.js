@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import {View, Text, StyleSheet, Pressable, TextInput, FlatList} from 'react-native'
+import {View, Text, StyleSheet, Pressable, TextInput, FlatList, ActivityIndicator} from 'react-native'
 import {auth, db} from "../firebase/config.js"
 
 function ComentarPost(props){
@@ -9,6 +9,7 @@ function ComentarPost(props){
 
     const [comentario, setComentario]= useState("")
     const [comentarios, setComentarios]= useState([])
+    const [cargando, setCargando]= useState(false)
 
     useEffect(
         ()=>{
@@ -43,6 +44,7 @@ function ComentarPost(props){
         if(comentario === ""){
             return
         }
+        setCargando(true)
         db.collection("comentarios")
         .add({
             postId: idPost,
@@ -52,8 +54,12 @@ function ComentarPost(props){
         })
         .then(()=>{
             setComentario("")
+            setCargando(false)
         })
-        .catch(error=> console.log(error))
+        .catch(error=>{
+            console.log(error)
+            setCargando(false)
+        })
     }
 
     return(
@@ -69,11 +75,12 @@ function ComentarPost(props){
 
             <TextInput style={styles.field}
             placeholder="Escribe un comentario..."
+            placeholderTextColor="#979797"
             onChangeText={text=> setComentario(text)}
             value={comentario}/>
 
-            <Pressable style={styles.button} onPress={()=> enviarComentario(comentario)}>
-                <Text style={styles.buttonText}>Comentar</Text>
+            <Pressable style={styles.button} onPress={()=> enviarComentario(comentario)} disabled={cargando}>
+                {cargando ? <ActivityIndicator color="#eeeeee" /> : <Text style={styles.buttonText}>Comentar</Text>}
             </Pressable>
 
             <FlatList
@@ -95,70 +102,72 @@ const styles= StyleSheet.create({
 
         principal: {
             flex: 1,
-            paddingHorizontal: 10,
-            marginTop: 20
+            backgroundColor: "#eeeeee",
+            padding: 16
         },
 
         post: {
-            backgroundColor: "#fff",
-            borderRadius: 8,
-            padding: 16,
+            borderWidth: 1,
+            borderColor: "#979797",
+            borderRadius: 4,
+            padding: 12,
             marginBottom: 12
         },
 
         postEmail: {
-            color: "#888",
+            color: "#666666",
             marginBottom: 8
         },
 
         postDescripcion: {
-            color: "#222"
+            color: "#000000"
         },
 
         titulo: {
+            color: "#000000",
             fontSize: 18,
             fontWeight: "bold",
-            marginBottom: 10
+            marginBottom: 8
         },
 
         field:{
-            height: 20,
-            paddingVertical: 15,
-            paddingHorizontal: 10,
             borderWidth: 1,
-            borderColor: "#ccc",
-            borderRadius: 6,
-            marginVertical: 10
+            borderColor: "#979797",
+            borderRadius: 4,
+            paddingHorizontal: 10,
+            paddingVertical: 12,
+            marginVertical: 8,
+            color: "#000000"
         },
 
         button:{
-            backgroundColor: "#28a745",
-            paddingHorizontal: 10,
-            paddingVertical: 6,
-            borderColor: "#28a745",
+            backgroundColor: "#0088cc",
+            paddingVertical: 12,
             borderRadius: 4,
-            borderWidth: 1,
-            alignItems:"center"
+            alignItems: "center",
+            marginVertical: 8
         },
 
         buttonText: {
-            color: "#fff"
+            color: "#eeeeee",
+            fontWeight: "bold"
         },
 
         comentario: {
-            backgroundColor: "#fff",
-            borderRadius: 8,
+            borderWidth: 1,
+            borderColor: "#979797",
+            borderRadius: 4,
             padding: 12,
             marginVertical: 6
         },
 
         comentarioEmail: {
-            color: "#888",
+            color: "#666666",
             marginBottom: 4
         },
 
         comentarioTexto: {
-            color: "#222"
+            color: "#000000"
         }
     })
 

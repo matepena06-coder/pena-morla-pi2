@@ -16,7 +16,7 @@ function Register({navigation}){
             setRegisterError("Email mal formateado")
             return
         }
-        
+
         if (password<6){
             setRegisterError("La contraseña debe tener como mínimo 6 caracteres")
             return
@@ -37,7 +37,7 @@ function Register({navigation}){
         .catch(error=>{
 
         if (error.code === "auth/email-already-in-use"){
-            
+
             setRegisterError("Ya existe un usuario registrado con este email")
 
         } else {
@@ -63,39 +63,37 @@ function Register({navigation}){
         <>
         <View style={styles.principal}>
 
-            <Text>Formulario de Register</Text>
+            <Text style={styles.titulo}>Registrarse</Text>
+
             <Pressable onPress={()=> navigation.navigate("Login")}>
-                <Text>Ya tengo cuenta</Text>
+                <Text style={styles.link}>Ya tengo cuenta</Text>
             </Pressable>
 
             <TextInput style={styles.field}
             keyboardType="email-address"
             placeholder="email"
+            placeholderTextColor="#979797"
             onChangeText={text=> setEmail(text)}
             value={email}/>
 
             <TextInput style={styles.field}
-            placeholder="user"
+            placeholder="usuario"
+            placeholderTextColor="#979797"
             onChangeText={text=> setUserName(text)}
             value={username}/>
 
             <TextInput style={styles.field}
-            placeholder="password"
+            placeholder="contraseña"
+            placeholderTextColor="#979797"
             secureTextEntry={true}
             onChangeText={text=> setPassword(text)}
             value={password}/>
 
-            <Text>{registerError}</Text>
+            <Text style={styles.error}>{registerError}</Text>
 
             <Pressable style={styles.button} onPress={()=> onSubmit(email, password, username)}>
-                <Text styles={styles.buttonText}>Registrarse</Text>
+                <Text style={styles.buttonText}>Registrarse</Text>
             </Pressable>
-
-            <View>
-                <Text>Email: {email}</Text>
-                <Text>UserName: {username}</Text>
-                <Text>Password: {password}</Text>
-            </View>
 
         </View>
         </>
@@ -105,29 +103,43 @@ function Register({navigation}){
 const styles= StyleSheet.create({
 
         principal: {
-            paddingHorizontal: 10,
-            marginTop: 20
+            flex: 1,
+            backgroundColor: "#eeeeee",
+            padding: 16
+        },
+        titulo: {
+            color: "#000000",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginBottom: 16
+        },
+        link: {
+            color: "#0088cc",
+            marginBottom: 16
         },
         field:{
-            height: 20,
-            paddingVertical: 15,
-            paddingHorizontal: 10,
             borderWidth: 1,
-            borderColor: "#ccc",
-            borderRadius: 6,
-            marginVertical: 10
+            borderColor: "#979797",
+            borderRadius: 4,
+            paddingHorizontal: 10,
+            paddingVertical: 12,
+            marginVertical: 8,
+            color: "#000000"
+        },
+        error: {
+            color: "#000000",
+            marginVertical: 8
         },
         button:{
-            backgroundColor: "#28a745",
-            paddingHorizontal: 10,
-            paddingVertical: 6,
-            borderColor: "#28a745",
+            backgroundColor: "#0088cc",
+            paddingVertical: 12,
             borderRadius: 4,
-            borderWidth: 1,
-            alignItems:"center"
+            alignItems: "center",
+            marginVertical: 8
         },
         buttonText: {
-            color: "#fff"
+            color: "#eeeeee",
+            fontWeight: "bold"
         }
     })
 

@@ -8,7 +8,7 @@ function Login({navigation}){
     const [password, setPassword]= useState("")
     const [loginCorrecto, setLoginCorrecto]= useState(false)
     const [loginError, setLoginError]= useState("")
-        
+
     const onSubmit =(email, password)=>{
 
         if (password<6){
@@ -21,7 +21,7 @@ function Login({navigation}){
         }
 
         auth.signInWithEmailAndPassword(email, password)
-        
+
         .then(response=>{
             setLoginCorrecto(true)
             navigation.navigate("HomeMenu")
@@ -48,34 +48,31 @@ function Login({navigation}){
         <>
         <View style={styles.principal}>
 
-            <Text>Formulario de Login</Text>
+            <Text style={styles.titulo}>Iniciar sesión</Text>
 
             <Pressable onPress={()=> navigation.navigate("Register")}>
-                <Text>No tengo cuenta</Text>
+                <Text style={styles.link}>No tengo cuenta</Text>
             </Pressable>
-            
+
             <TextInput style={styles.field}
             keyboardType="email-address"
             placeholder="email"
+            placeholderTextColor="#979797"
             onChangeText={text=> setEmail(text)}
             value={email}/>
-            
+
             <TextInput style={styles.field}
-            placeholder="password"
+            placeholder="contraseña"
+            placeholderTextColor="#979797"
             secureTextEntry={true}
             onChangeText={text=> setPassword(text)}
             value={password}/>
 
-            <Text>{loginError}</Text>
-            
+            <Text style={styles.error}>{loginError}</Text>
+
             <Pressable style={styles.button} onPress={()=> onSubmit(email, password)}>
-                <Text styles={styles.buttonText}>Log in</Text>
+                <Text style={styles.buttonText}>Iniciar sesión</Text>
             </Pressable>
-            
-            <View>
-                <Text>Email: {email}</Text>
-                <Text>Password: {password}</Text>
-            </View>
 
         </View>
         </>
@@ -85,32 +82,43 @@ function Login({navigation}){
 const styles= StyleSheet.create({
 
         principal: {
-            paddingHorizontal: 10,
-            marginTop: 20
+            flex: 1,
+            backgroundColor: "#eeeeee",
+            padding: 16
         },
-
+        titulo: {
+            color: "#000000",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginBottom: 16
+        },
+        link: {
+            color: "#0088cc",
+            marginBottom: 16
+        },
         field:{
-            height: 20,
-            paddingVertical: 15,
-            paddingHorizontal: 10,
             borderWidth: 1,
-            borderColor: "#ccc",
-            borderRadius: 6,
-            marginVertical: 10
-        },
-
-        button:{
-            backgroundColor: "#28a745",
-            paddingHorizontal: 10,
-            paddingVertical: 6,
-            borderColor: "#28a745",
+            borderColor: "#979797",
             borderRadius: 4,
-            borderWidth: 1,
-            alignItems:"center"
+            paddingHorizontal: 10,
+            paddingVertical: 12,
+            marginVertical: 8,
+            color: "#000000"
         },
-
+        error: {
+            color: "#000000",
+            marginVertical: 8
+        },
+        button:{
+            backgroundColor: "#0088cc",
+            paddingVertical: 12,
+            borderRadius: 4,
+            alignItems: "center",
+            marginVertical: 8
+        },
         buttonText: {
-            color: "#fff"
+            color: "#eeeeee",
+            fontWeight: "bold"
         }
     })
 

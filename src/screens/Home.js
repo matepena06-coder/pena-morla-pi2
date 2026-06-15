@@ -39,7 +39,7 @@ function Home(props){
     return(
         <>
         <View style={styles.principal}>
-            <Text>Home</Text>
+            <Text style={styles.titulo}>Inicio</Text>
             <FlatList
             data={posteos}
             keyExtractor={(item)=> item.id}
@@ -52,8 +52,14 @@ function Home(props){
 const styles= StyleSheet.create({
         principal: {
             flex: 1,
-            alignItems: "center",
-            padding: 10
+            backgroundColor: "#eeeeee",
+            padding: 16
+        },
+        titulo: {
+            color: "#000000",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginBottom: 12
         }
     })
 

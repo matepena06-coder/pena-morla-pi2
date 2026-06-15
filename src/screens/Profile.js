@@ -45,21 +45,21 @@ function Profile({navigation}){
         <>
         <View style={styles.principal}>
 
-            <Text>Mi Perfil</Text>
+            <Text style={styles.titulo}>Mi perfil</Text>
 
-            <Text>Usuario: {username}</Text>
+            <Text style={styles.dato}>Usuario: {username}</Text>
 
-            <Text>Email: {auth.currentUser.email}</Text>
+            <Text style={styles.dato}>Email: {auth.currentUser.email}</Text>
 
-            <Text>Mis Posteos</Text>
+            <Text style={styles.subtitulo}>Mis posteos</Text>
 
             <FlatList
             data={posteos}
             keyExtractor={(item)=> item.id}
             renderItem={({item}) => <Post data={item.data} id={item.id} onComentar={(id, data)=> navigation.navigate("Home", {screen: "ComentarPost", params: {id: id, data: data}})}/>}/>
 
-            <Pressable onPress={()=> logout()}>
-                <Text>Desloguearse</Text>
+            <Pressable style={styles.button} onPress={()=> logout()}>
+                <Text style={styles.buttonText}>Cerrar sesión</Text>
             </Pressable>
         </View>
         </>
@@ -69,9 +69,36 @@ function Profile({navigation}){
 const styles= StyleSheet.create({
     principal: {
         flex: 1,
+        backgroundColor: "#eeeeee",
+        padding: 16
+    },
+    titulo: {
+        color: "#000000",
+        fontSize: 22,
+        fontWeight: "bold",
+        marginBottom: 16
+    },
+    dato: {
+        color: "#000000",
+        marginVertical: 4
+    },
+    subtitulo: {
+        color: "#666666",
+        fontWeight: "bold",
+        marginTop: 16,
+        marginBottom: 8
+    },
+    button: {
+        backgroundColor: "#0088cc",
+        paddingVertical: 12,
+        borderRadius: 4,
         alignItems: "center",
-        padding: 10
-    } 
+        marginTop: 8
+    },
+    buttonText: {
+        color: "#eeeeee",
+        fontWeight: "bold"
+    }
 })
 
 export default Profile

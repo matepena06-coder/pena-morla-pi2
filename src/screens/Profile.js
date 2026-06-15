@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native'
 import {useState, useEffect} from 'react'
-import Post from "../../components/Post/Post"
-import {auth, db} from '../../firebase/config'
+import Post from "../components/Post"
+import {auth, db} from '../firebase/config'
 
 function Profile({navigation}){
 
@@ -56,7 +56,7 @@ function Profile({navigation}){
             <FlatList
             data={posteos}
             keyExtractor={(item)=> item.id}
-            renderItem={({item}) => <Post data={item.data}/>}/>
+            renderItem={({item}) => <Post data={item.data} id={item.id} onComentar={(id, data)=> navigation.navigate("Home", {screen: "ComentarPost", params: {id: id, data: data}})}/>}/>
 
             <Pressable onPress={()=> logout()}>
                 <Text>Desloguearse</Text>

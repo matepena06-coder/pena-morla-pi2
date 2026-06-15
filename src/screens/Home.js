@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import {View, Text, StyleSheet} from 'react-native'
-import {auth, db} from "../../firebase/config"
-import Post from "../../components/Post/Post"
+import {auth, db} from "../firebase/config"
+import Post from "../components/Post"
 import { FlatList } from "react-native"
 
 function Home(props){
@@ -43,7 +43,7 @@ function Home(props){
             <FlatList
             data={posteos}
             keyExtractor={(item)=> item.id}
-            renderItem={({item}) => <Post data={item.data}/>}/>
+            renderItem={({item}) => <Post data={item.data} id={item.id} onComentar={(id, data)=> props.navigation.navigate("ComentarPost", {id: id, data: data})}/>}/>
         </View>
         </>
     )

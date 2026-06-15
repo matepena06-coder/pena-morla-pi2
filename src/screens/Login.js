@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import {View, Text, StyleSheet, Pressable, TextInput} from 'react-native'
-import {auth} from "../../firebase/config.js"
+import {auth} from "../firebase/config.js"
 
 function Login({navigation}){
 

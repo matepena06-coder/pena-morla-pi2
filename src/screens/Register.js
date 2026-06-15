@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import {View, Text, StyleSheet, Pressable, TextInput} from 'react-native'
-import {auth, db} from "../../firebase/config"
+import {auth, db} from "../firebase/config"
 
 function Register({navigation}){
 

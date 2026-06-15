@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import {View, Text, StyleSheet, Pressable, TextInput, ActivityIndicator} from 'react-native'
-import {auth, db} from "../../firebase/config.js"
+import {auth, db} from "../firebase/config.js"
 
 function CrearPost(props){
 

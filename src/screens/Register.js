@@ -17,7 +17,7 @@ function Register({navigation}){
             return
         }
 
-        if (password<6){
+        if (password.length<6){
             setRegisterError("La contraseña debe tener como mínimo 6 caracteres")
             return
         }

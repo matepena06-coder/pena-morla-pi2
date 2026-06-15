@@ -11,7 +11,7 @@ function Login({navigation}){
 
     const onSubmit =(email, password)=>{
 
-        if (password<6){
+        if (password.length<6){
             setLoginError("La contraseña debe tener como mínimo 6 caracteres")
             return
         }
